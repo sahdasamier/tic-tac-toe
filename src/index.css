@@ -1,0 +1,327 @@
+/* that reast code mean any thing in the app must follow that style */
+*{
+padding: 0;
+margin: 0;
+box-sizing: border-box;
+}
+/*sodo selector to make css like varibles*/
+:root{
+  --color-bg-dark:#192a33;
+  --color-bg-light:#1f3640;
+  --color-gray:#a8bec9;
+  --color-gray-dark:#7a8991;
+  --color-purple:#540d35;
+  --color-purple-dark:#290515;
+  --color-blue:#6c1530;
+  --color-blue-dark:#2e0814;
+  --shadow-y: 6px;
+}
+html{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-transform: uppercase;
+  font-size: 16px; /*base font size of app when i want chang size with rem EX1.5rem thatis mean 16+8*/
+}
+body{
+  background-color: var(--color-bg-dark);
+  color: var(--color-gray);
+}
+.App{
+  min-height: 100vh;/*to adjst app to abrobriate the screen and if screen more than 100 it will increas because i gave him min-hight*/
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.container{
+  max-width: 450px;
+  width: 100%;
+margin-inline: auto; /*that is mean the distance fro rightand lift*/
+padding: 2rem 1rem;
+}
+/* utilities */
+.card{
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;/*the distance betwen the content eachother */
+  background-color: var(--color-bg-light);
+  border-radius:15px;
+  text-align: center;
+
+}
+.text-light{
+  color: var(--color-bg);
+}
+.text-blue{
+  color: var(--color-blue-dark);
+}
+.text-purple{
+  color: var(--color-purple);
+}
+.text-lg{
+  font-size:1.25rem ;
+}
+.text-xl{
+  font-size:1.50rem ;
+}
+.text-2xl{
+  font-size:1.75rem ;
+}
+.bg-light{
+  background-color: var(--color-gray);
+  color:var(--color-bg-dark)
+}
+.bg-blue{
+  background-color: var(--color-blue);
+
+}
+.bg-purple{
+  background-color: var(--color-purple);
+}
+
+.btn{
+  background-color: var(--color-gray);
+  border: none;
+  font-size: 1,50rem;
+  font-weight: bold;
+  padding: 20px 40px;
+  text-transform: Uppercase;
+  cursor: pointer;
+  border: radius 10px; 
+  color:var(--color-bg-light);
+  display: block;
+  box-shadow: 0 var(--shadow-y) 0 var(--color-gray-dark);
+  margin-bottom: 6px;
+  transition: all .2s; /*to give btn animation it is up in .2s*/
+}
+.btn:hover{
+  --shadow-y: 8px;
+  transform: translateY(-2px); /*when you hover on it it tiny up to upper with 2px becuse we use minus*/
+
+}
+.btn:active{
+  --shadow-y:4px;/*we decrease the shadow to give sense to user like this btns in alive */
+  transform: translateY(-2px); /*when you hover on it it tiny up to upper with 2px becuse we use minus*/
+  
+}
+.btn-purple{
+  background-color: var(--color-purple);
+  box-shadow: 0 var(--shadow-y) 0 var(--color-purple-dark);
+ color: aliceblue;
+}
+.btn-blue{
+  background-color: var(--color-blue);
+  box-shadow: 0 var(--shadow-y) 0 var(--color-blue-dark);
+  color: aliceblue;
+}
+.btn-sm{
+  --shadow-y: 4px;
+}
+.btn-sm:hover{
+  --shadow-y:6px;
+  
+}
+.btn-sm:active{
+  --shadow-y:3px;
+}
+.shadow-gray{
+  box-shadow: 0 8px rgba(0 , 0 ,0.2) ;
+}
+.shadow-blue{
+  box-shadow: 0 8px var(--color-blue-dark) ;
+}
+.shadow-purple{
+  box-shadow: 0 8px var(--color-purple-dark);
+}
+
+
+
+
+/*icon*/
+ .icon{
+  display: inline-block;
+ }
+.icon svg{
+  fill:var(--color-gray); /*fill or change the olor of icons*/ 
+  height: 50px;
+  width:50px;
+  vertical-align: middle; /*if it take height bigger than her size it will be in the middle */
+}
+.icon-sm svg{
+  height: 30px;
+}
+.icon-lg svg{
+  height: 65px;
+}
+.icon-purple svg{
+ fill: var(--color-purple);
+}
+.icon-blue svg{
+  fill: var(--color-blue);
+}
+.icon-dark svg{
+  fill: var(--color-dark);
+}
+
+
+
+/*start*/
+.start{
+ display: flex;
+ flex-direction: column;
+ gap: 25px;
+}
+.start__header{
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+.start__players{
+  background-color: var(--color-bg-light);
+  padding: 10px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 0  8px rgb(0 , 0 ,0.2);/*inside*/
+
+}
+.start__players span{
+  width:50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+padding: 15px 10px;
+border-radius: 10px;
+cursor: pointer;
+}
+.start__players--active{
+  background-color: var(--color-gray-dark);
+  box-shadow: 0 0 8px rgba(255, 255 ,255,0.2);
+}
+.start__btns{ /*it is flex box, it is a good thing to control on margin and width */
+  display: flex;
+flex-direction: column;
+gap :12px;
+}
+/* board  */
+
+.board__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+.board__turn {
+  border-radius: 5px;
+  background-color: var(--color-bg-light);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+  padding: 8px 12px 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.board__restart svg {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center;
+  transition: all 0.3s;
+}
+
+.board__restart:active svg {
+  transform: rotate(180deg);
+}
+.board__body{
+  display: grid;
+  grid-template-columns:repeat(3 ,1fr); /*repeat three times and it will divided on that three*/
+  gap:25px 30px;
+}
+.board__body .card{
+  height:120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding-inline:10px;
+}
+.board__body .active.shadow-blue{
+  background-color: var(--color-blue);
+}
+.board__body .active.shadow-purple{
+  background-color: var(--color-purple);
+}
+
+.board__footer{
+  margin-top:30px;
+  display: grid;
+  grid-template-columns:repeat(3,1fr) ;
+  gap: 20px;
+}
+.board__footer .card{
+  gap: 15px; 
+}
+
+
+/* modal */
+.modal{
+  position: fixed; /*if you scroll up it will be fixed not move from his position*/
+  top: 0;
+  left:0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  background-color: rgba(0 , 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+}
+.modal.closed {
+  display: none;
+}
+.modal__content {
+  width:100%;
+  background-color: var(--color-bg-light);
+}
+
+/*score*/
+.score{
+  text-align: center;
+  font-size: 2rem;
+}
+.score__tittle{
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap:6px;
+  margin: 30px 0;
+
+}
+.score__btns{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+/* restart */
+.restart{
+  text-align: center;
+}
+.restart__title{
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap:6px;
+  margin-bottom: 30px;
+  
+
+}
+.restart__btns{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
