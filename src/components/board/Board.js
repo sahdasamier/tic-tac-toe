@@ -35,7 +35,8 @@ const Board = () => { /*that's num of squares*/
                 {/*sq/squares ,ix/index ,key/to backend can follow that, user/we can put sq or be empty */}
                 {
                 squares.map((sq, ix) => (
-                    <BoardCard key={ix}
+                    <BoardCard 
+                        key={ix}
                         index={ix}
                         user={sq}
                         active={

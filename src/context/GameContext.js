@@ -1,4 +1,4 @@
-import {createContext, useContext, useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 import {calcWinner} from "../helpers/calcSquares";
 import {ModalContext} from "../context/ModalContext"
 
@@ -14,10 +14,12 @@ const GameState = (props) => {
     const [winner, setWinner] = useState(null);
     const [winnerLine, setWinnerLine] = useState(null);
     const [ties, setTies] = useState({x: 0, o: 0});
-
-   
-
-
+     useEffect(()=> {
+        checkNoWinner ();
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+     } , [xnext ,winner,screen]); //we use that not handleClick becacuse if i played with cup , and that three cases which changed , to check winner 
+    
+    
     const changePlayMode = mode => {
         setPlayMode(mode);
         setScreen("game");
@@ -34,28 +36,27 @@ const GameState = (props) => {
         // check winner
         checkWinner(ns) // I take this ns after modifiction to take tne modern copy not old one so i made a copy from array tbe best without errors
     }
-    const handleReset =()=>{
-       setSquares(new Array(9).fill('')) //that mean i empty the squares
-       setXnext(false)
-       setWinner(null)
-    setWinnerLine(null)
-    setActiveUser('x')
-    setTies({x:0 , o:0})
-    hideModal()
-    setScreen("start")
-    }
-
-    const handleNextRound =()=>{
-        setSquares(new Array(9).fill(''))
-        setXnext(winner=== 'o') //the winner will start , if winner=o that mean xnext was true
+    const handleReset = () => {
+        setSquares(new Array(9).fill('')) // that mean i empty the squares
+        setXnext(false)
         setWinner(null)
-    setWinnerLine(null)
-    hideModal()
-    
+        setWinnerLine(null)
+        setActiveUser('x')
+        setTies({x: 0, o: 0})
+        hideModal()
+        setScreen("start")
     }
-   
 
-    
+    const handleNextRound = () => {
+        setSquares(new Array(9).fill(''))
+        setXnext(winner === '0') // the winner will start , if winner=o that mean xnext was true
+        setWinner(null)
+        setWinnerLine(null)
+        hideModal()
+
+    }
+
+
     const checkWinner = (ns) => {
         const isWinner = calcWinner(ns); // ns:squares
         if (isWinner) {
@@ -69,36 +70,46 @@ const GameState = (props) => {
             setTies(ti);
             showModal();
             setModalMode("winner");
-        }
+        } 
     }
 
-    return (
-        <GameContext.Provider value={
-            {
-                screen,
-                activeUser,
-                playMode,
-                squares,
-                winner,
-                winnerLine,
-                xnext,
-                ties,
-                handleSquareClick,
-                setSquares,
-                setScreen,
-                changePlayMode,
-                setActiveUser,
-                setPlayMode,
-                setTies,
-                handleNextRound,
-                handleReset
+    const checkNoWinner = () => {
+        const moves = squares.filter((sq) => sq === "");
+        if (moves.length === 0) {
+          setWinner("no");
+          showModal();
+          setModalMode("winner");
+          
+        }
+      };
 
-            }
-        }>
-            {
-            props.children
-        } </GameContext.Provider>
-    );
+
+
+    return (<GameContext.Provider value={
+        {
+            screen,
+            activeUser,
+            playMode,
+            squares,
+            winner,
+            winnerLine,
+            xnext,
+            ties,
+            handleSquareClick,
+            setSquares,
+            setScreen,
+            changePlayMode,
+            setActiveUser,
+            setPlayMode,
+            setTies,
+            setWinnerLine,
+            handleNextRound,
+            handleReset
+
+        }
+    }> {
+        props.children
+    } </GameContext.Provider>);
 };
 export {
     GameContext,

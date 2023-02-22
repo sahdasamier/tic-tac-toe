@@ -9,7 +9,7 @@ const BoardCard = ({ active, user = "nouser", index }) => {
   return (
     <div
       className={`card ${active && user === "x" && "shadow-blue"} ${
-        active && user === "o" && "shadow-yellow"
+        active && user === "o" && "shadow-purple"
       } ${active ? "active" : "shadow-gray"}`}
       onClick={() => handleSquareClick(index)}
     >
