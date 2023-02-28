@@ -3,8 +3,25 @@ import Xicon from '../icons/Xicon';
 import Oicon from '../icons/Oicon';
 import BoardCard from './BoardCard';
 import {GameContext} from '../../context/GameContext';
+import { ModalContext } from '../../context/ModalContext';
 const Board = () => { /*that's num of squares*/
-    const {squares, xnext ,ties , winner , winnerLine} = useContext(GameContext);
+    const {squares, xnext ,ties , winner , winnerLine, playMode ,activeUser } = useContext(GameContext);
+    const {showModal , setModalMode}=useContext(ModalContext) 
+    
+    const resetGame = () => {
+        showModal()
+        setModalMode("start")
+     };
+     const  checkUser =(user) =>{
+        if(playMode === 'cpu'){
+           if(user === activeUser){
+            return "(you)"
+           }else{
+               return '(cpu)'
+           }
+        }
+     }
+    
     return (
         <div className='board'>
             <div className="board__header">
@@ -24,7 +41,7 @@ const Board = () => { /*that's num of squares*/
                     turn
                 </div>
                 <div>
-                    <button className='btn btn-sm board__restart'>
+                    <button className='btn btn-sm board__restart' onClick={resetGame}>
                         <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="redo" role="img" viewBox="0 0 512 512">
                             <path fill="currentColor" d="M500.33 0h-47.41a12 12 0 0 0-12 12.57l4 82.76A247.42 247.42 0 0 0 256 8C119.34 8 7.9 119.53 8 256.19 8.1 393.07 119.1 504 256 504a247.1 247.1 0 0 0 166.18-63.91 12 12 0 0 0 .48-17.43l-34-34a12 12 0 0 0-16.38-.55A176 176 0 1 1 402.1 157.8l-101.53-4.87a12 12 0 0 0-12.57 12v47.41a12 12 0 0 0 12 12h200.33a12 12 0 0 0 12-12V12a12 12 0 0 0-12-12z"></path>
                         </svg>
@@ -46,15 +63,15 @@ const Board = () => { /*that's num of squares*/
             } </div>
             <div className="board__footer">
                 <div className="card bg-blue">
-                    <p className='text-align'>X (you)</p>
+                    <p className='text-align'>X {checkUser('x')} </p>
                     <strong className='text-2xl'>{ties.x}</strong>
                 </div>
                 <div className="card bg-light">
-                    <p className='text-align'>ties</p>
-                    <strong className='text-2xl'>{ties.x + ties.o} </strong>
+                    <p className='text-align'>ties {checkUser('no')}</p>
+                    <strong className='text-2xl'>{ties.x + ties.o + ties.no} </strong>
                 </div>
                 <div className="card bg-purple">
-                    <p className='text-align'>O (cpu)</p>
+                    <p className='text-align'>O {checkUser('x')}</p>
                     <strong className='text-2xl'>{ties.o}</strong>
                 </div>
             </div>

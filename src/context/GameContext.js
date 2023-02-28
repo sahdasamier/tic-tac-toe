@@ -1,5 +1,5 @@
 import {createContext, useContext, useEffect, useState} from "react";
-import {calcWinner} from "../helpers/calcSquares";
+import {calcBestMove, calcWinner} from "../helpers/calcSquares";
 import {ModalContext} from "../context/ModalContext"
 
 const GameContext = createContext();
@@ -13,11 +13,20 @@ const GameState = (props) => {
     const [xnext, setXnext] = useState(false);
     const [winner, setWinner] = useState(null);
     const [winnerLine, setWinnerLine] = useState(null);
-    const [ties, setTies] = useState({x: 0, o: 0});
+    const [ties, setTies] = useState({x: 0, o: 0, no:0});
      useEffect(()=> {
-        checkNoWinner ();
+        
+        
+        let currentUser = xnext ? 'o' : 'x' ;
+        if (playMode === 'cpu' && currentUser !== activeUser && !winner ){
+            cpuNextMove(squares)
+        }
+ 
+    
+           
+           checkNoWinner ();
      // eslint-disable-next-line react-hooks/exhaustive-deps
-     } , [xnext ,winner,screen]); //we use that not handleClick becacuse if i played with cup , and that three cases which changed , to check winner 
+     } , [xnext ,winner,screen,ties]); //we use that not handleClick becacuse if i played with cup , and that three cases which changed , to check winner 
     
     
     const changePlayMode = mode => {
@@ -25,6 +34,9 @@ const GameState = (props) => {
         setScreen("game");
     }
     const handleSquareClick = (ix) => {
+        if(squares[ix]|| winner) { //stop for changing ix after choose it 
+            return ;
+        }
         let currentUser = xnext ? "o" : "x";
         if (playMode === "cpu" && currentUser !== activeUser) {
             return;
@@ -42,7 +54,7 @@ const GameState = (props) => {
         setWinner(null)
         setWinnerLine(null)
         setActiveUser('x')
-        setTies({x: 0, o: 0})
+        setTies({x: 0, o: 0 , no:0})
         hideModal()
         setScreen("start")
     }
@@ -56,13 +68,14 @@ const GameState = (props) => {
 
     }
 
+    
+    
 
     const checkWinner = (ns) => {
         const isWinner = calcWinner(ns); // ns:squares
         if (isWinner) {
             setWinner(isWinner.winner);
             setWinnerLine(isWinner.line);
-            // set tries
             const ti = {
                 ...ties
             };
@@ -80,9 +93,18 @@ const GameState = (props) => {
           showModal();
           setModalMode("winner");
           
+     
+        
         }
       };
-
+    const cpuNextMove = (squares) =>{
+        const bestMove = calcBestMove (squares , activeUser === "x" ? "o" : "x")
+        let ns =[...squares]
+        ns[bestMove] = !xnext ? "x" :"o";
+        setSquares(ns); //  fill the suare with anew value
+        setXnext(!xnext )
+        checkWinner(ns) // I take this ns after   
+    }
 
 
     return (<GameContext.Provider value={
