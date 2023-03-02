@@ -67,8 +67,8 @@ const Board = () => { /*that's num of squares*/
                     <strong className='text-2xl'>{ties.x}</strong>
                 </div>
                 <div className="card bg-light">
-                    <p className='text-align'>ties {checkUser('no')}</p>
-                    <strong className='text-2xl'>{ties.x + ties.o + ties.no} </strong>
+                    <p className='text-align'>ties </p>
+                    <strong className='text-2xl'>{ties.x + ties.o} </strong>
                 </div>
                 <div className="card bg-purple">
                     <p className='text-align'>O {checkUser('x')}</p>

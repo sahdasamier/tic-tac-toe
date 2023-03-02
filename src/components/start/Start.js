@@ -5,7 +5,7 @@ import Oicon from "../icons/Oicon";
 import Xicon from "../icons/Xicon";
 
 const Start = () => {
-  const { activeUser, setActiveUser,setPlayMode, changePlayMode } = useContext(GameContext);
+  const { activeUser, setActiveUser, handleStart  } = useContext(GameContext);
 
   return (
     <div className="start">
@@ -17,25 +17,25 @@ const Start = () => {
         <h1 className="text-lg">Pick player 1'st mark</h1>
         <div className="start__players">
           <span
-            className={activeUser === "x" ? "start__players--active" : ""}
+            className={activeUser === "x" ? "start__players--active" : "" }
             onClick={() => setActiveUser("x")}
           >
             <Xicon color={activeUser === "x" ? "dark" : "blue"} />
           </span>
           <span
-            className={activeUser === "o" ? "start__players--active" : ""}
+            className={activeUser === "o" ? "start__players--active" : "" }
             onClick={() => setActiveUser("o")}
           >
             <Oicon color={activeUser === "o" ? "dark" : "purple"} />
           </span>
         </div>
-        <p className="text-light text-normal">remember: x goes first</p>
+        <p className="text-light text-normal"> remember: x goes first</p>
       </div>
       <div className="start__btns">
-        <button className="btn btn-yellow" onClick={() => changePlayMode("cpu")}>
+        <button className="btn btn-yellow" onClick={() => handleStart ("cpu")}>
           new game (vs CPU)
         </button>
-        <button className="btn btn-blue" onClick={() => changePlayMode("user")}>
+        <button className="btn btn-blue" onClick={() => handleStart ("user")}>
           
           new game (vs Player)
         </button>
